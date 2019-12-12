@@ -43,7 +43,7 @@ def read_config():
     import json
     global settings
 
-    with open(CONFIG, "w+") as config:
+    with open(CONFIG, "r+") as config:
         settings = json.load(config)
 
 def print_config():
