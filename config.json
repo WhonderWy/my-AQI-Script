@@ -1,7 +1,5 @@
 {
-	// "DEFAULT_SITE": "https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1",
 	"site": "https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1",
-	// "DEFAULT_LOCATION": "Liverpool",
 	"location": "Liverpool",
 	"interested_fields": {
 		"Ozone-O3": true,

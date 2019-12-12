@@ -61,12 +61,13 @@ def get_values():
     global fields
 
     soup = BeautifulSoup(markup=get_html(), features="lxml")
-    table = soup.find_all('table')[1]
+    table = soup.find_all('table')[5]
 
     for row in table.find_all('tr'):
+        # Incidentally, it's #43
         if (row.find_all(settings["location"])):
             columns = row.find_all('td')
-            for column, key in columns, fields:
+            for column, key in zip(columns, fields):
                 fields[key] = column.get_text()
 
 def print_data():
@@ -83,4 +84,6 @@ def print_data():
 
 
 if __name__ == "__main__":
-    pass
+    read_config()
+    get_values()
+    print_data()
