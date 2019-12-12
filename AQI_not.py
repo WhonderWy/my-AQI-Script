@@ -9,7 +9,8 @@
 from bs4 import BeautifulSoup
 
 CONFIG = "config.json"
-SETTINGS = {}
+settings = {}
+
 SCALE = {
     "VERY GOOD": 33,
     "GOOD": 66,
@@ -18,7 +19,20 @@ SCALE = {
     "VERY POOR": 199,
     "HAZARDOUS": 200,
 
-    "scale": 33
+    "scale": 33,
+}
+
+fields = {
+    "Ozone O3 hourly": None,
+    "Ozone O3 four hourly": None,
+    "Nitrogen Dioxide NO2": None,
+    "Visibility NEPH": None,
+    "Carbon Monoxide CO2": None,
+    "Sulfur Dioxide SO2": None,
+    "Particles PM10": None,
+    "Particles PM2.5": None,
+    "Site AQI": None,
+    "Regional AQI": None,
 }
 
 # class Settings():
@@ -27,28 +41,44 @@ SCALE = {
 
 def read_config():
     import json
-    global SETTINGS
+    global settings
 
     with open(CONFIG, "w+") as config:
-        SETTINGS = json.load(config)
+        settings = json.load(config)
 
 def print_config():
-    for field in SETTINGS:
+    for field in settings:
         print(field)
 
 def get_html():
     import requests
-    html_data = requests.get(str(SETTINGS["site"]))
+
+    html_data = requests.get(str(settings["site"]))
+    
     return html_data.text
 
-def get_value():
+def get_values():
+    global fields
+
     soup = BeautifulSoup(markup=get_html(), features="lxml")
-    return result
+    table = soup.find_all('table')[1]
+
+    for row in table.find_all('tr'):
+        if (row.find_all(settings["location"])):
+            columns = row.find_all('td')
+            for column, key in columns, fields:
+                fields[key] = column.get_text()
 
 def print_data():
-    for field in SETTINGS["interested_fields"]:
-        value = get_value()
-        print(f"{field}: {value}")
+    scale = None
+    for field in settings["interested_fields"]:
+        value = get_values()
+        for level in SCALE:
+            if value < SCALE[level]:
+                scale = level
+                break
+        string = f"{field:<20} is {scale:^10} at {value:>5}"
+        print(string)
 
 
 
