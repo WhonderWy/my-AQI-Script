@@ -1,0 +1,20 @@
+{
+	// "DEFAULT_SITE": "https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1",
+	"site": "https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1",
+	// "DEFAULT_LOCATION": "Liverpool",
+	"location": "Liverpool",
+	"interested_fields": {
+		"Ozone-O3": true,
+		"Ozone-O3_hour": true,
+		"Ozone-O3_four": false,
+		"Nitrogen-Dioxide-NO2": true,
+		"Visibility-NEPH": true,
+		"Carbon-Monoxide-CO2": true,
+		"Sulfur-Dioxide-SO2": true,
+		"Particles-PM10": true,
+		"Particles-PM2.5": true,
+		"Site-AQI": true,
+		"Regional-AQI": true
+	},
+	"forecast": true
+}
