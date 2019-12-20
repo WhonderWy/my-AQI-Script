@@ -22,6 +22,7 @@ SCALE = {
 }
 
 fields = {
+    "Site Name": None,
     "Ozone O3 hourly": None,
     "Ozone O3 four hourly": None,
     "Nitrogen Dioxide NO2": None,
@@ -72,11 +73,12 @@ def get_values():
     for row in targets:
         # Incidentally, it"s #43
         # class_="Site"
-        if row.text.find(settings["location"]):
+        if row.text.find(settings["location"]) != -1:
             text = row.text.splitlines()
-            for line, key in text, fields:
-                if settings["location"] != line:
-                    fields[key] = line
+            text.remove("")
+            for line, key in zip(text, fields):
+                fields[key] = line
+        break
         # current = row.find_all("td", settings["location"])
         # if current:
         #     columns = row.find_all("td")
@@ -85,9 +87,10 @@ def get_values():
 
 
 def print_data():
+    global fields
     scale = None
-    for field in settings["interested_fields"]:
-        value = get_values()
+    for field in fields:
+        value = fields[field]
         for level in SCALE:
             if value < SCALE[level]:
                 scale = level
