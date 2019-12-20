@@ -101,13 +101,65 @@ def print_data():
 def send_notification():
     import platform
 
+    get_values()
+    string = None
+
     osName = platform.system()
     if osName == "Linux":
         pass
     elif osName == "Windows":
-        pass
+        windows_notification()
     else:
         pass
+
+
+def windows_notification():
+    from win10toast import ToastNotifier
+
+    toaster = ToastNotifier()
+    title = None
+    string = None
+    for field in fields:
+        value = fields[field]
+        try:
+            value = int(value)
+        except:
+            title = f"{field:<20} is {value}"
+            continue
+        for level in SCALE:
+            if value <= SCALE[level]:
+                scale = level
+                break
+        string += f"{field:<20} is {scale:^10} at {value:>5}\n"
+    toaster.show_toast(title, string)
+
+
+def ubuntu_notification():
+    import subprocess as s
+
+    title = None
+    string = None
+    for field in fields:
+        value = fields[field]
+        try:
+            value = int(value)
+        except:
+            title = f"{field:<20} is {value}"
+            continue
+        for level in SCALE:
+            if value <= SCALE[level]:
+                scale = level
+                break
+        string += f"{field:<20} is {scale:^10} at {value:>5}\n"
+    s.call(["notify-send", title, string])
+
+
+def timer(time=60):
+    from apscheduler.schedulers.blocking import BlockingScheduler
+
+    scheduler = BlockingScheduler()
+    scheduler.add_job(send_notification(), "interval", minutes=time)
+    scheduler.start()
 
 
 if __name__ == "__main__":
