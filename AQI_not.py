@@ -78,7 +78,7 @@ def get_values():
             text.remove("")
             for line, key in zip(text, fields):
                 fields[key] = line
-        break
+            break
         # current = row.find_all("td", settings["location"])
         # if current:
         #     columns = row.find_all("td")
@@ -91,8 +91,13 @@ def print_data():
     scale = None
     for field in fields:
         value = fields[field]
+        try:
+            value = int(value)
+        except:
+            print(f"{field:<20} is {value}")
+            continue
         for level in SCALE:
-            if value < SCALE[level]:
+            if value <= SCALE[level]:
                 scale = level
                 break
         string = f"{field:<20} is {scale:^10} at {value:>5}"
