@@ -2,6 +2,7 @@
 
 # Original Author: William
 # Date created: 2019/12/12
+# Version: 2019/12/20 version 0.1 "It WORKS!"
 # Reason: The air quality settled down around my area and I wasn"t worrying about breathing for once so I considered writing a simple script.
 # What this does:
 # A simple script that outputs necessary data to terminal or elsewhere based on config.
@@ -67,23 +68,16 @@ def get_values():
 
     soup = BeautifulSoup(markup=get_html(), features="lxml")
     table = soup.find_all("table", class_="aqi")[0]
-    # site = table.find_all(id="site")
     targets = table.find_all("tr")
 
     for row in targets:
-        # Incidentally, it"s #43
-        # class_="Site"
+
         if row.text.find(settings["location"]) != -1:
             text = row.text.splitlines()
             text.remove("")
             for line, key in zip(text, fields):
                 fields[key] = line
             break
-        # current = row.find_all("td", settings["location"])
-        # if current:
-        #     columns = row.find_all("td")
-        #     for column, key in zip(columns, fields):
-        #         fields[key] = column.get_text()
 
 
 def print_data():

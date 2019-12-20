@@ -1,0 +1,6 @@
+requests
+python3-bs4
+json
+platform
+lxml
+python3>=3.7.5
