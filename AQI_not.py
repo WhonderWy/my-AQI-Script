@@ -83,6 +83,7 @@ def get_values():
 def print_data():
     global fields
     scale = None
+    get_values()
     for field in fields:
         value = fields[field]
         try:
@@ -171,6 +172,5 @@ def timer(time=60):
 
 if __name__ == "__main__":
     read_config()
-    #get_values()
-    #print_data()
+    print_data()
     send_notification()
