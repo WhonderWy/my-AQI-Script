@@ -19,7 +19,7 @@ SCALE = {
     "POOR": 149,
     "VERY POOR": 199,
     "HAZARDOUS": 200,
-    "scale": 33,
+    # "scale": 33,
 }
 
 fields = {
@@ -130,6 +130,9 @@ def windows_notification():
             if value <= SCALE[level]:
                 scale = level
                 break
+            elif value >= SCALE["HAZARDOUS"]:
+                scale = "HAZARDOUS"
+                break
         string += f"{field:<20} is {scale:^10} at {value:>5}\n"
     toaster.show_toast(title, string)
 
@@ -149,6 +152,9 @@ def ubuntu_notification():
         for level in SCALE:
             if value <= SCALE[level]:
                 scale = level
+                break
+            elif value >= SCALE["HAZARDOUS"]:
+                scale = "HAZARDOUS"
                 break
         string += f"{field:<20} is {scale:^10} at {value:>5}\n"
     s.call(["notify-send", title, string])
