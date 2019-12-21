@@ -1,2 +1,4 @@
 index.html
 index_files/*
+/AQI-env
+/.vs

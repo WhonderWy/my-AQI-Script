@@ -1,6 +1,4 @@
 requests
-python3-bs4
-json
-platform
+BeautifulSoup4
 lxml
-python3>=3.7.5
+win10toast

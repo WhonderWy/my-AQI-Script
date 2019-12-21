@@ -126,7 +126,7 @@ def windows_notification():
         try:
             value = int(value)
         except:
-            title = f"{field:<20} is {value}"
+            title = f"{field}: {value}"
             continue
         for level in SCALE:
             if value <= SCALE[level]:
@@ -134,8 +134,8 @@ def windows_notification():
                 break
             elif value >= SCALE[level]:
                 scale = level
-        string += f"{field:<20} is {scale:^10} at {value:>5}\n"
-    toaster.show_toast(title, string)
+        string = f"{field} is {scale} at {value}\n"
+        toaster.show_toast(title, string)
 
 
 def ubuntu_notification():
@@ -171,5 +171,6 @@ def timer(time=60):
 
 if __name__ == "__main__":
     read_config()
-    get_values()
-    print_data()
+    #get_values()
+    #print_data()
+    send_notification()
