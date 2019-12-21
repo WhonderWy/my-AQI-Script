@@ -19,7 +19,7 @@ Just run `./AQI_not.py` from the terminal.
 
 ## Changelog
 
-2019-12-20 - 0.1 "It WORKS!" - Released to public.\n
+2019-12-20 - 0.1 "It WORKS!" - Released to public.\
 2019-12-21 - 0.1b "Now on WINDOWS!" - Light tests to confirm working on Windows. Notification also sort of works.
 
 ## Licence
