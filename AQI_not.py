@@ -94,6 +94,8 @@ def print_data():
             if value <= SCALE[level]:
                 scale = level
                 break
+            elif value >= SCALE[level]:
+                scale = level
         string = f"{field:<20} is {scale:^10} at {value:>5}"
         print(string)
 
@@ -130,9 +132,8 @@ def windows_notification():
             if value <= SCALE[level]:
                 scale = level
                 break
-            elif value >= SCALE["HAZARDOUS"]:
-                scale = "HAZARDOUS"
-                break
+            elif value >= SCALE[level]:
+                scale = level
         string += f"{field:<20} is {scale:^10} at {value:>5}\n"
     toaster.show_toast(title, string)
 
