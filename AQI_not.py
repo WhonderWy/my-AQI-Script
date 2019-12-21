@@ -126,7 +126,7 @@ def windows_notification():
         try:
             value = int(value)
         except:
-            title = f"{field}: {value}"
+            title = f"Air Quality Index for {field}: {value}"
             continue
         for level in SCALE:
             if value <= SCALE[level]:
