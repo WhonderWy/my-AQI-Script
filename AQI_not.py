@@ -89,7 +89,10 @@ def print_data():
         try:
             value = int(value)
         except:
-            print(f"{field:<20} is {value}")
+            if len(value) == 0:
+                print(f"{field:<20} could not be determined")
+            else:
+                print(f"{field:<20} is {value}")
             continue
         for level in SCALE:
             if value <= SCALE[level]:
