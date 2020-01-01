@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 
 CONFIG = "config.json"
 settings = {}
+PREVIOUS = "previous_values.json"
 
 SCALE = {
     "VERY GOOD": 33,
@@ -36,9 +37,6 @@ fields = {
     "Regional AQI": None,
 }
 
-# class Settings():
-# 	def __init__(self):
-# 		pass
 
 
 def read_config():
@@ -71,13 +69,23 @@ def get_values():
     targets = table.find_all("tr")
 
     for row in targets:
-
         if row.text.find(settings["location"]) != -1:
             text = row.text.splitlines()
             text.remove("")
             for line, key in zip(text, fields):
                 fields[key] = line
             break
+
+def save_values():
+    global fields
+
+    import json, datetime
+
+    now = datetime.datetime.now().strftime("%c") + "\n"
+
+    with open(PREVIOUS, "a+") as store:
+        store.write(now)
+        json.dump(fields, store)
 
 
 def print_data():
@@ -177,3 +185,4 @@ if __name__ == "__main__":
     read_config()
     print_data()
     send_notification()
+    save_values()
