@@ -76,6 +76,7 @@ def get_values():
                 fields[key] = line
             break
 
+# Needs to be run after print_data() lest you print the date field too...
 def save_values():
     global fields
 
@@ -84,8 +85,8 @@ def save_values():
     now = datetime.datetime.now().strftime("%c")
 
     with open(PREVIOUS, "a+") as store:
-        if not "keys" in fields:
-            fields["keys"] = now
+        if not "date" in fields:
+            fields["date"] = now
         json.dump(fields, store)
 
 
