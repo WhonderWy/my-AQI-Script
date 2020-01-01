@@ -81,10 +81,11 @@ def save_values():
 
     import json, datetime
 
-    now = datetime.datetime.now().strftime("%c") + "\n"
+    now = datetime.datetime.now().strftime("%c")
 
     with open(PREVIOUS, "a+") as store:
-        store.write(now)
+        if not "keys" in fields:
+            fields["keys"] = now
         json.dump(fields, store)
 
 
