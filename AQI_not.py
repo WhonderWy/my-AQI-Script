@@ -9,7 +9,7 @@
 
 from bs4 import BeautifulSoup
 
-CONFIG = "config.json"
+CONFIG = "$HOME/.local/AQI_config.json"
 settings = {}
 PREVIOUS = "previous_values.json"
 
@@ -43,8 +43,16 @@ def read_config():
     import json
 
     global settings
+    import os
 
-    with open(CONFIG, "r+") as config:
+    if CONFIG.find("HOME"):
+        location = os.path.expandvars(CONFIG)
+    elif CONFIG.find("~"):
+        location = os.path.expanduser(CONFIG)
+    else:
+        location = CONFIG
+
+    with open(location, "r+") as config:
         settings = json.load(config)
 
 
