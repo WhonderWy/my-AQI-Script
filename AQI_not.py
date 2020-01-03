@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 CONFIG = "$HOME/.local/AQI_config.json"
 settings = {}
-PREVIOUS = "previous_values.json"
+PREVIOUS = "$HOME/.local/AQI_previous_values.json"
 
 SCALE = {
     "VERY GOOD": 33,
@@ -40,10 +40,9 @@ fields = {
 
 
 def read_config():
-    import json
+    import json, os
 
     global settings
-    import os
 
     if CONFIG.find("HOME"):
         location = os.path.expandvars(CONFIG)
@@ -88,11 +87,18 @@ def get_values():
 def save_values():
     global fields
 
-    import json, datetime
+    import json, datetime, os
+
+    if CONFIG.find("HOME"):
+        location = os.path.expandvars(PREVIOUS)
+    elif CONFIG.find("~"):
+        location = os.path.expanduser(PREVIOUS)
+    else:
+        location = PREVIOUS
 
     now = datetime.datetime.now().strftime("%c")
 
-    with open(PREVIOUS, "a+") as store:
+    with open(location, "a+") as store:
         if not "date" in fields:
             fields["date"] = now
         json.dump(fields, store)
