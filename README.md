@@ -4,9 +4,9 @@ A very simple script I wrote so I would not need to visit the [website](https://
 
 ## Current Goals
 
-* Have it run on a timer so I don't need to run the script whenever I need it.
+* ~~Have it run on a timer so I don't need to run the script whenever I need it.~~ Just run it as a cron job.
 * Test with the other sites so the settings configurations actually work. I.e. Test a lot.
-* Interface it with the notification APIs available to the systems I have access to (namely Windows and Ubuntu).
+* Interface it with the notification APIs available to the systems I have access to (namely Windows and Ubuntu). As of 0.1b, only needs testing.
 
 ## Requirements
 
@@ -21,7 +21,8 @@ Just run `./AQI_not.py` from the terminal.
 
 2019-12-20 - 0.1 "It WORKS!" - Released to public.\
 2019-12-21 - 0.1b "Now on WINDOWS!" - Light tests to confirm working on Windows. Notification also sort of works.\
-2020-01-01 - 0.1d "2019 is HISTORY!" - Previous values are now saved. If table cell is empty, it won't print nothing anymore.
+2020-01-01 - 0.1d "2019 is HISTORY!" - Previous values are now saved. If table cell is empty, it won't print nothing anymore.\
+2020-01-03 - 0.1e "Source: BUSHFIRE!" - Users can now clone repository and link it anywhere they want so long. Default configuration location is `$HOME/.local/AQI_config.json`.
 
 ## Licence
 
