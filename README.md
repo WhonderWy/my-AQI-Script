@@ -22,7 +22,8 @@ Just run `./AQI_not.py` from the terminal.
 2019-12-20 - 0.1 "It WORKS!" - Released to public.\
 2019-12-21 - 0.1b "Now on WINDOWS!" - Light tests to confirm working on Windows. Notification also sort of works.\
 2020-01-01 - 0.1d "2019 is HISTORY!" - Previous values are now saved. If table cell is empty, it won't print nothing anymore.\
-2020-01-03 - 0.1e "Source: BUSHFIRE!" - Users can now clone repository and link it anywhere they want so long. Default configuration location is `$HOME/.local/AQI_config.json`. An `install.sh` also exists now. Not sure if it works though.
+2020-01-03 - 0.1e "Source: BUSHFIRE!" - Users can now clone repository and link it anywhere they want so long. Default configuration location is `$HOME/.local/AQI_config.json`. An `install.sh` also exists now. Not sure if it works though.\
+2020-01-08 - 0.1f "/Totally/ on TIME!" - Now includes time the data is more or less from in console.
 
 ## Licence
 

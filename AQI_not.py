@@ -37,7 +37,7 @@ fields = {
     "Regional AQI": None,
 }
 
-
+current_time = None
 
 def read_config():
     import json, os
@@ -69,9 +69,11 @@ def get_html():
 
 
 def get_values():
-    global fields
+    global fields, current_time
+    import datetime
 
     soup = BeautifulSoup(markup=get_html(), features="lxml")
+    current_time = datetime.datetime.utcnow().strftime("%c")
     table = soup.find_all("table", class_="aqi")[0]
     targets = table.find_all("tr")
 
@@ -100,7 +102,7 @@ def save_values():
 
     with open(location, "a+") as store:
         if not "date" in fields:
-            fields["date"] = now
+            fields["date"] = current_time
         json.dump(fields, store)
 
 
@@ -108,6 +110,7 @@ def print_data():
     global fields
     scale = None
     get_values()
+    print(current_time)
     for field in fields:
         value = fields[field]
         try:
