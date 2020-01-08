@@ -58,7 +58,7 @@ def read_config():
 
 def print_config():
     for field in settings:
-        print(field)
+        print(f"{field}: {settings[field]}.")
 
 
 # pls help, func not descriptive enough.
@@ -215,12 +215,34 @@ def read_args():
     import argparse
 
     parser = argparse.ArgumentParser(prog="myAQIScript - Air Quality Index Notifier", description="An easy way to see only the information I want to see.")
-    parser.add_argument("-command", choices=FUNCTION_MAP.keys(), required=False)
+    parser.add_argument("-c", "--command", choices=FUNCTION_MAP.keys(), required=False)
+    
+    # subs = parser.add_subparsers()
+
+    # parse_print = subs.add_parser("print")
+    # parse_print.add_argument("-p")
+    # parse_print.add_argument("--print")
+    # parse_print.add_argument("print")
+    # parse_print.set_defaults(func=print_data)
+
+    # parse_settings = subs.add_parser("settings")
+    # parse_print.add_argument("-c")
+    # parse_print.add_argument("--settings")
+    # parse_print.add_argument("settings")
+    # parse_print.set_defaults(func=print_config)
+
+    # parse_save = subs.add_parser("save")
+    # parse_print.add_argument("-s")
+    # parse_print.add_argument("--save")
+    # parse_print.add_argument("save")
+    # parse_print.set_defaults(func=save_values)
 
     args = parser.parse_args()
     if args.command:
         func = FUNCTION_MAP[args.command]
         func()
+    # elif args.func(args):
+    #     args.func(args)
     else:
         print_data()
 
