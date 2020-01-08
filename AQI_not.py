@@ -81,7 +81,9 @@ def get_values():
     import datetime
 
     soup = BeautifulSoup(markup=get_html(), features="lxml")
-    current_time = datetime.datetime.utcnow().strftime("%c")
+
+    current_time = datetime.datetime.now().strftime("%c")
+
     table = soup.find_all("table", class_="aqi")[0]
     targets = table.find_all("tr")
 
