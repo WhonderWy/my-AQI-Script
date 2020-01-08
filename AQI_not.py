@@ -9,8 +9,9 @@
 
 from bs4 import BeautifulSoup
 
-CONFIG = "$HOME/.local/AQI_config.json"
 settings = {}
+current_time = None
+CONFIG = "$HOME/.local/AQI_config.json"
 PREVIOUS = "$HOME/.local/AQI_previous_values.json"
 
 SCALE = {
@@ -37,7 +38,7 @@ fields = {
     "Regional AQI": None,
 }
 
-current_time = None
+
 
 def read_config():
     import json, os
@@ -60,6 +61,7 @@ def print_config():
         print(field)
 
 
+# pls help, func not descriptive enough.
 def get_html():
     import requests
 
@@ -68,6 +70,7 @@ def get_html():
     return html_data.text
 
 
+# Reads the values from the table.
 def get_values():
     global fields, current_time
     import datetime
@@ -84,6 +87,7 @@ def get_values():
             for line, key in zip(text, fields):
                 fields[key] = line
             break
+
 
 # Needs to be run after print_data() lest you print the date field too...
 def save_values():
@@ -200,8 +204,30 @@ def timer(time=60):
     scheduler.start()
 
 
+# https://stackoverflow.com/a/27529806/12408018
+FUNCTION_MAP = {
+    "print": print_data,
+    "settings": print_config,
+    "save": save_values
+}
+
+def read_args():
+    import argparse
+
+    parser = argparse.ArgumentParser(prog="myAQIScript - Air Quality Index Notifier", description="An easy way to see only the information I want to see.")
+    parser.add_argument("-command", choices=FUNCTION_MAP.keys(), required=False)
+
+    args = parser.parse_args()
+    if args.command:
+        func = FUNCTION_MAP[args.command]
+        func()
+    else:
+        print_data()
+
+
 if __name__ == "__main__":
     read_config()
-    print_data()
-    send_notification()
-    save_values()
+    read_args()
+    # print_data()
+    # send_notification()
+    # save_values()
