@@ -25,6 +25,7 @@ Just run `./AQI_not.py` from the terminal.
 2020-01-03 - 0.1e "Source: BUSHFIRE!" - Users can now clone repository and link it anywhere they want so long. Default configuration location is `$HOME/.local/AQI_config.json`. An `install.sh` also exists now. Not sure if it works though.\
 2020-01-08 - 0.1f "/Totally/ on TIME!" - Now includes time the data is more or less from in console.\
 2020-01-08 - 0.1g "No GUI but now with OPTIONS!" - You can now print the data, settings and save the data from the command line!.
+2020-01-08 - 0.1h "HTML not HTM" - HTML file of page is now stored.
 
 ## Licence
 

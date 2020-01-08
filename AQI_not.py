@@ -69,6 +69,11 @@ def get_html():
 
     return html_data.text
 
+def save_html():
+    html_data = get_html()
+    with open("index.html", "w+") as html:
+        html.write(html_data)
+
 
 # Reads the values from the table.
 def get_values():
@@ -208,7 +213,8 @@ def timer(time=60):
 FUNCTION_MAP = {
     "print": print_data,
     "settings": print_config,
-    "save": save_values
+    "save": save_values,
+    "html": save_html
 }
 
 def read_args():
