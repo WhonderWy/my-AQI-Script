@@ -223,6 +223,7 @@ FUNCTION_MAP = {
     "settings": print_config,
     "save": save_values,
     "html": save_html
+    "notify": send_notification
 }
 
 def read_args():
