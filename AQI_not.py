@@ -52,8 +52,12 @@ def read_config():
     else:
         location = CONFIG
 
-    with open(location, "r+") as config:
-        settings = json.load(config)
+    try:
+        with open(location, "r+") as config:
+            settings = json.load(config)
+    except:
+        with open(location, "w+") as config:
+            settings = json.load(config)
 
 
 def print_config():
