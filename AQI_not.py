@@ -222,7 +222,7 @@ FUNCTION_MAP = {
     "print": print_data,
     "settings": print_config,
     "save": save_values,
-    "html": save_html
+    "html": save_html,
     "notify": send_notification
 }
 
