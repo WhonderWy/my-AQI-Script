@@ -169,7 +169,7 @@ def windows_notification():
     toaster = ToastNotifier()
     title = None
     string = None
-    toaster.show_toast("Now", current_time)
+    toaster.show_toast("AQI from:", current_time)
     for field in fields:
         value = fields[field]
         try:
@@ -192,7 +192,7 @@ def ubuntu_notification():
 
     title = None
     string = None
-    s.call(["notify-send", "Now", current_time])
+    s.call(["notify-send", "AQI from:", current_time])
     for field in fields:
         value = fields[field]
         try:
