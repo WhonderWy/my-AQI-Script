@@ -156,7 +156,7 @@ def send_notification():
 
     osName = platform.system()
     if osName == "Linux":
-        pass
+        ubuntu_notification()
     elif osName == "Windows":
         windows_notification()
     else:
