@@ -169,6 +169,7 @@ def windows_notification():
     toaster = ToastNotifier()
     title = None
     string = None
+    toaster.show_toast("Now", current_time)
     for field in fields:
         value = fields[field]
         try:
@@ -191,21 +192,21 @@ def ubuntu_notification():
 
     title = None
     string = None
+    s.call(["notify-send", "Now", current_time])
     for field in fields:
         value = fields[field]
         try:
             value = int(value)
         except:
-            title = f"{field:<20} is {value}"
+            title = f"Air Quality Index for {field}: {value}"
             continue
         for level in SCALE:
             if value <= SCALE[level]:
                 scale = level
                 break
-            elif value >= SCALE["HAZARDOUS"]:
-                scale = "HAZARDOUS"
-                break
-        string += f"{field:<20} is {scale:^10} at {value:>5}\n"
+            elif value >= SCALE[level]:
+                scale = level
+        string = f"{field} is {scale} at {value}\n"
     s.call(["notify-send", title, string])
 
 
