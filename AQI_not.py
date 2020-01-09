@@ -207,7 +207,7 @@ def ubuntu_notification():
             elif value >= SCALE[level]:
                 scale = level
         string = f"{field} is {scale} at {value}\n"
-    s.call(["notify-send", title, string])
+        s.call(["notify-send", title, string])
 
 
 def timer(time=60):
