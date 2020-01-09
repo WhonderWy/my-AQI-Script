@@ -56,7 +56,9 @@ def read_config():
         with open(location, "r+") as config:
             settings = json.load(config)
     except:
-        with open(location, "w+") as config:
+        import shutil
+        shutil.copy("template_AQI_config.json", location)
+        with open(location, "r+") as config:
             settings = json.load(config)
 
 
