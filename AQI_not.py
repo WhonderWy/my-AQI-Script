@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # Original Author: William
-# Date created: 2019/12/12
-# Version: 2019/12/20 version 0.1 "It WORKS!"
+# Date created: 2019-12-12
+# Version: 2020-01-08 version 0.1h "HTML not HTM"
 # Reason: The air quality settled down around my area and I wasn"t worrying about breathing for once so I considered writing a simple script.
 # What this does:
 # A simple script that outputs necessary data to terminal or elsewhere based on config.
@@ -39,7 +39,6 @@ fields = {
 }
 
 
-
 def read_config():
     import json, os
 
@@ -57,6 +56,7 @@ def read_config():
             settings = json.load(config)
     except:
         import shutil
+
         shutil.copy("template_AQI_config.json", location)
         with open(location, "r+") as config:
             settings = json.load(config)
@@ -74,6 +74,7 @@ def get_html():
     html_data = requests.get(str(settings["site"]))
 
     return html_data.text
+
 
 def save_html():
     html_data = get_html()
@@ -209,6 +210,11 @@ def ubuntu_notification():
         string = f"{field} is {scale} at {value}\n"
         s.call(["notify-send", title, string])
 
+def change_settings(*args):
+    read_config()
+    # if "-l" in args:
+    pass
+
 
 def timer(time=60):
     from apscheduler.schedulers.blocking import BlockingScheduler
@@ -224,15 +230,20 @@ FUNCTION_MAP = {
     "settings": print_config,
     "save": save_values,
     "html": save_html,
-    "notify": send_notification
+    "notify": send_notification,
 }
+
 
 def read_args():
     import argparse
 
-    parser = argparse.ArgumentParser(prog="myAQIScript - Air Quality Index Notifier", description="An easy way to see only the information I want to see.")
+    parser = argparse.ArgumentParser(
+        prog="myAQIScript - Air Quality Index Notifier",
+        description="An easy way to see only the information I want to see.",
+    )
     parser.add_argument("-c", "--command", choices=FUNCTION_MAP.keys(), required=False)
-    
+    # parser.add_argument("-l", "--command", required=False)
+
     # subs = parser.add_subparsers()
 
     # parse_print = subs.add_parser("print")
