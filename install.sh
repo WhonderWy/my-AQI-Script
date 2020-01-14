@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This assumes that you only downloaded the install.sh and not the entire repository.
+
 echo "Ensuring python3 is installed..."
 sudo apt update && sudo apt install python3
 
