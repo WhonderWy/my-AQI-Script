@@ -3,3 +3,4 @@ index_files/*
 /AQI-env
 /.vs
 previous_values.json
+.mypy_cache
