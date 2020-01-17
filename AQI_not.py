@@ -13,6 +13,10 @@ settings = {}
 current_time = None
 CONFIG = "$HOME/.local/AQI_config.json"
 PREVIOUS = "$HOME/.local/AQI_previous_values.json"
+# Can also use $XDG_DATA_HOME and $XDG_CONFIG_HOME if you know what it is (https://stackoverflow.com/questions/1024114/location-of-ini-config-files-in-linux-unix)
+# Windows: $HOME to $USERPROFILE or $APPDATA with $XDG_DATA_DIRS pointing to :$APPDATA:$PROGRAMDATA
+
+template = "template_AQI_config.json"
 
 SCALE = {
     "VERY GOOD": 33,
@@ -51,15 +55,21 @@ def read_config():
     else:
         location = CONFIG
 
-    try:
-        with open(location, "r+") as config:
-            settings = json.load(config)
-    except:
-        import shutil
+    flag = True
+    while flag is True:
+        try:
+            with open(location, "r+") as config:
+                settings = json.load(config)
+            flag = False
+        except:
+            import shutil
+            for root, dirs, files in os.walk("."):
+                global template
+                if template in files:
+                    template = os.path.join(root, template)
+                    break
+            shutil.copy(template, location)
 
-        shutil.copy("template_AQI_config.json", location)
-        with open(location, "r+") as config:
-            settings = json.load(config)
 
 
 def print_config():
