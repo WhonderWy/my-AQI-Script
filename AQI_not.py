@@ -230,8 +230,17 @@ def timer(time=60):
     from apscheduler.schedulers.blocking import BlockingScheduler
 
     scheduler = BlockingScheduler()
-    scheduler.add_job(send_notification(), "interval", minutes=time)
+    # scheduler.add_job(send_notification(), "interval", minutes=time)
+    scheduler.add_job(print_data(), "interval", seconds=time)
     scheduler.start()
+
+    # try:
+    #     while True:
+    #         import time
+    #         time.sleep(2)
+    # except (KeyboardInterrupt, SystemExit):
+    #     scheduler.shutdown()
+
 
 
 # https://stackoverflow.com/a/27529806/12408018
@@ -241,6 +250,7 @@ FUNCTION_MAP = {
     "save": save_values,
     "html": save_html,
     "notify": send_notification,
+    # "auto": timer
 }
 
 
