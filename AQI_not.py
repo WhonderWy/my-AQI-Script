@@ -158,12 +158,20 @@ def print_scale():
     sys.stdout.write("\b\n")
 
 
-def print_data():
+def format_colour(field, scale, value):
+    return f"{field:<20} is {terminalColour[scale]}{scale:^10}{terminalColour['RESET']} at {terminalColour[scale]}{value:>5}{terminalColour['RESET']}"
+
+
+def print_data(coloured=True):
     global fields
+    
     scale = None
+
     get_values()
-    print_scale()
+    if coloured or settings["colour"]:
+        print_scale()
     print(current_time)
+
     for field in fields:
         value = fields[field]
         try:
@@ -180,7 +188,10 @@ def print_data():
                 break
             elif value >= SCALE[level]:
                 scale = level
-        string = f"{field:<20} is {terminalColour[scale]}{scale:^10}{terminalColour['RESET']} at {terminalColour[scale]}{value:>5}{terminalColour['RESET']}"
+        if coloured or settings["colour"]:
+            string = format_colour(field, scale, value)
+        else:
+            string = f"{field:<20} is {scale:^10} at {value:>5}"
         print(string)
 
 
@@ -211,7 +222,10 @@ def windows_notification():
         try:
             value = int(value)
         except:
-            title = f"Air Quality Index for {field}: {value}"
+            if len(value) == 0:
+                title = f"{field} could not be determined"
+            else:
+                title = f"Air Quality Index for {field}: {value}"
             continue
         for level in SCALE:
             if value <= SCALE[level]:
@@ -234,7 +248,10 @@ def ubuntu_notification():
         try:
             value = int(value)
         except:
-            title = f"Air Quality Index for {field}: {value}"
+            if len(value) == 0:
+                title = f"{field} could not be determined"
+            else:
+                title = f"Air Quality Index for {field}: {value}"
             continue
         for level in SCALE:
             if value <= SCALE[level]:
@@ -291,6 +308,7 @@ def read_args():
     parser.add_argument("-c", "--command", choices=FUNCTION_MAP.keys(), required=False)
     # Lets one immediately parse in a different location
     parser.add_argument("-l", "--location", required=False)
+    parser.add_argument("-nc", "--no-colour", required=False, action="store_true")
 
     # subs = parser.add_subparsers()
 
@@ -321,6 +339,9 @@ def read_args():
         func()
     # elif args.func(args):
     #     args.func(args)
+    elif args.no_colour:
+        settings["colour"] = False
+        print_data(coloured=False)
     else:
         print_data()
 

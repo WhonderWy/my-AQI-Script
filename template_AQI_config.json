@@ -14,5 +14,6 @@
 		"Site AQI": true,
 		"Regional AQI": true
 	},
-	"forecast": true
+	"forecast": true,
+	"colour": true
 }
