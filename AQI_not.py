@@ -14,8 +14,8 @@ current_time = None
 CONFIG = "$HOME/.local/AQI_config.json"
 PREVIOUS = "$HOME/.local/AQI_previous_values.json"
 # DEFAULT = "."
-# CONFIG = "$APPDATA\.local\AQI_config.json"
-# PREVIOUS = "$APPDATA\.local\AQI_previous_values.json"
+W_CONFIG = "$APPDATA\AQI\AQI_config.json"
+W_PREVIOUS = "$APPDATA\AQI\AQI_previous_values.json"
 # Can also use $XDG_DATA_HOME and $XDG_CONFIG_HOME if you know what it is (https://stackoverflow.com/questions/1024114/location-of-ini-config-files-in-linux-unix)
 # Windows: $HOME to $USERPROFILE or $APPDATA with $XDG_DATA_DIRS pointing to :$APPDATA:$PROGRAMDATA
 
@@ -47,16 +47,25 @@ fields = {
 
 
 def read_config():
-    import json, os
+    import json, os, platform
 
     global settings
 
-    if CONFIG.find("HOME"):
-        location = os.path.expandvars(CONFIG)
-    elif CONFIG.find("~"):
-        location = os.path.expanduser(CONFIG)
-    else:
-        location = CONFIG
+    osName = platform.system()
+    if osName == "Linux":
+        if CONFIG.find("HOME"):
+            location = os.path.expandvars(CONFIG)
+        elif CONFIG.find("~"):
+            location = os.path.expanduser(CONFIG)
+        else:
+            location = CONFIG
+    elif osName == "Windows":
+        if CONFIG.find("%"):
+            location = os.path.expandvars(W_CONFIG)
+        elif CONFIG.find("USER"):
+            location = os.path.expanduser(W_CONFIG)
+        else:
+            location = W_CONFIG
 
     flag = True
     while flag is True:
@@ -66,7 +75,8 @@ def read_config():
             flag = False
         except:
             import shutil
-
+            if not os.path.exists(location[:-15]):
+                os.makedirs(location[:-15])
             for root, dirs, files in os.walk("."):
                 global template
                 if template in files:
@@ -120,14 +130,25 @@ def get_values():
 def save_values():
     global fields
 
-    import json, datetime, os
+    import json, datetime, os, platform
 
-    if CONFIG.find("HOME"):
-        location = os.path.expandvars(PREVIOUS)
-    elif CONFIG.find("~"):
-        location = os.path.expanduser(PREVIOUS)
-    else:
-        location = PREVIOUS
+    location = None
+
+    osName = platform.system()
+    if osName == "Linux":
+        if CONFIG.find("HOME"):
+            location = os.path.expandvars(CONFIG)
+        elif CONFIG.find("~"):
+            location = os.path.expanduser(CONFIG)
+        else:
+            location = CONFIG
+    elif osName == "Windows":
+        if CONFIG.find("%"):
+            location = os.path.expandvars(W_CONFIG)
+        elif CONFIG.find("USER"):
+            location = os.path.expanduser(W_CONFIG)
+        else:
+            location = W_CONFIG
 
     now = datetime.datetime.now().strftime("%c")
 
