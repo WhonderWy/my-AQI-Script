@@ -63,13 +63,13 @@ def read_config():
             flag = False
         except:
             import shutil
+
             for root, dirs, files in os.walk("."):
                 global template
                 if template in files:
                     template = os.path.join(root, template)
                     break
             shutil.copy(template, location)
-
 
 
 def print_config():
@@ -134,10 +134,32 @@ def save_values():
         json.dump(fields, store)
 
 
+# https://stackoverflow.com/a/26665998/12408018
+terminalColour = {
+    "VERY GOOD": "\x1b[38;2;49;173;211m",  # 74
+    "GOOD": "\x1b[38;2;153;185;100m",  # 150
+    "FAIR": "\x1b[38;2;255;210;54m",  # 221
+    "POOR": "\x1b[38;2;236;120;58m",  # 209
+    "VERY POOR": "\x1b[38;2;120;45;73m",  # 95
+    "HAZARDOUS": "\x1b[38;2;208;71;48m",  # 167
+    "RESET": "\x1b[0m",
+}
+
+
+def print_scale():
+    import sys
+
+    for key in terminalColour:
+        if key != "RESET":
+            sys.stdout.write(f"{terminalColour[key]}{key}{terminalColour['RESET']} ")
+    sys.stdout.write("\b\n")
+
+
 def print_data():
     global fields
     scale = None
     get_values()
+    print_scale()
     print(current_time)
     for field in fields:
         value = fields[field]
@@ -155,7 +177,7 @@ def print_data():
                 break
             elif value >= SCALE[level]:
                 scale = level
-        string = f"{field:<20} is {scale:^10} at {value:>5}"
+        string = f"{field:<20} is {terminalColour[scale]}{scale:^10}{terminalColour['RESET']} at {terminalColour[scale]}{value:>5}{terminalColour['RESET']}"
         print(string)
 
 
@@ -220,8 +242,9 @@ def ubuntu_notification():
         string = f"{field} is {scale} at {value}\n"
         s.call(["notify-send", title, string])
 
+
 def change_settings(*args):
-    read_config()
+    # read_config()
     # if "-l" in args:
     pass
 
@@ -242,7 +265,6 @@ def timer(time=60):
     #     scheduler.shutdown()
 
 
-
 # https://stackoverflow.com/a/27529806/12408018
 FUNCTION_MAP = {
     "print": print_data,
@@ -261,8 +283,11 @@ def read_args():
         prog="myAQIScript - Air Quality Index Notifier",
         description="An easy way to see only the information I want to see.",
     )
+
+    # Lets one use call a specific function
     parser.add_argument("-c", "--command", choices=FUNCTION_MAP.keys(), required=False)
-    # parser.add_argument("-l", "--command", required=False)
+    # Lets one immediately parse in a different location
+    parser.add_argument("-l", "--location", required=False)
 
     # subs = parser.add_subparsers()
 
@@ -285,6 +310,9 @@ def read_args():
     # parse_print.set_defaults(func=save_values)
 
     args = parser.parse_args()
+    read_config()
+    if args.location:
+        settings["location"] = args.location
     if args.command:
         func = FUNCTION_MAP[args.command]
         func()
@@ -295,7 +323,6 @@ def read_args():
 
 
 if __name__ == "__main__":
-    read_config()
     read_args()
     # print_data()
     # send_notification()
