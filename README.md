@@ -26,7 +26,8 @@ Just run `./AQI_not.py` from the terminal.
 2020-01-08 - 0.1f "/Totally/ on TIME!" - Now includes time the data is more or less from in console.\
 2020-01-08 - 0.1g "No GUI but now with OPTIONS!" - You can now print the data, settings and save the data from the command line!.\
 2020-01-08 - 0.1h "HTML not HTM" - HTML file of page is now stored.\
-2020-01-26 - 0.1l "Colours and LOCATIONS!" - Exact(?) colours used on the site is now displayed. `"-l"` as an argument followed by place name will override the location in the configuration.
+2020-01-26 - 0.1l "Colours and LOCATIONS!" - Exact(?) colours used on the site is now displayed. `"-l"` as an argument followed by place name will override the location in the configuration.\
+2020-01-27 - 0.1m "m is the new WINDOWS support!" - It should work better with Windows now. May or may not have broken it previously when I added the function to auto-create configuration at desired location.
 
 ## Licence
 
