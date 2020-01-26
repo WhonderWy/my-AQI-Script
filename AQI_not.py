@@ -13,6 +13,9 @@ settings = {}
 current_time = None
 CONFIG = "$HOME/.local/AQI_config.json"
 PREVIOUS = "$HOME/.local/AQI_previous_values.json"
+# DEFAULT = "."
+# CONFIG = "$APPDATA\.local\AQI_config.json"
+# PREVIOUS = "$APPDATA\.local\AQI_previous_values.json"
 # Can also use $XDG_DATA_HOME and $XDG_CONFIG_HOME if you know what it is (https://stackoverflow.com/questions/1024114/location-of-ini-config-files-in-linux-unix)
 # Windows: $HOME to $USERPROFILE or $APPDATA with $XDG_DATA_DIRS pointing to :$APPDATA:$PROGRAMDATA
 
