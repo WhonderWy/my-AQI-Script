@@ -183,13 +183,13 @@ def format_colour(field, scale, value):
     return f"{field:<20} is {terminalColour[scale]}{scale:^10}{terminalColour['RESET']} at {terminalColour[scale]}{value:>5}{terminalColour['RESET']}"
 
 
-def print_data(coloured=True):
+def print_data():
     global fields
     
     scale = None
 
     get_values()
-    if coloured or settings["colour"]:
+    if settings["colour"]:
         print_scale()
     print(current_time)
 
@@ -209,7 +209,7 @@ def print_data(coloured=True):
                 break
             elif value >= SCALE[level]:
                 scale = level
-        if coloured or settings["colour"]:
+        if settings["colour"]:
             string = format_colour(field, scale, value)
         else:
             string = f"{field:<20} is {scale:^10} at {value:>5}"
@@ -355,14 +355,13 @@ def read_args():
     read_config()
     if args.location:
         settings["location"] = args.location
+    if args.no_colour:
+        settings["colour"] = False
     if args.command:
         func = FUNCTION_MAP[args.command]
         func()
     # elif args.func(args):
     #     args.func(args)
-    elif args.no_colour:
-        settings["colour"] = False
-        print_data(coloured=False)
     else:
         print_data()
 
