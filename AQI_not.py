@@ -75,6 +75,7 @@ def read_config():
             flag = False
         except:
             import shutil
+
             if not os.path.exists(location[:-15]):
                 os.makedirs(location[:-15])
             for root, dirs, files in os.walk("."):
@@ -191,7 +192,7 @@ def format_colour(field, scale, value):
 
 def print_data(new):
     global fields
-    
+
     scale = None
 
     get_values(new)
