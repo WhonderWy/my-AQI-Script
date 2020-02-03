@@ -1,6 +1,6 @@
 # New South Wales Air Quality Index Scraper
 
-A very simple script I wrote so I would not need to visit the [website](https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1 "Environment NSW's Official Air Quality Index Table") myself and look for the relevant cell in the table.
+A very simple script I wrote so I would not need to visit [this](https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1 "Environment NSW's Official Air Quality Index Table") [website](https://airquality.environment.nsw.gov.au/aquisnetnswphptest/getPage.php?reportid=1 "Environment NSW's Official Test Air Quality Index Table") myself and look for the relevant cell in the table.
 
 ## Current Goals
 
@@ -26,8 +26,9 @@ Just run `./AQI_not.py` from the terminal.
 2020-01-08 - 0.1f "/Totally/ on TIME!" - Now includes time the data is more or less from in console.\
 2020-01-08 - 0.1g "No GUI but now with OPTIONS!" - You can now print the data, settings and save the data from the command line!.\
 2020-01-08 - 0.1h "HTML not HTM" - HTML file of page is now stored.\
-2020-01-26 - 0.1l "Colours and LOCATIONS!" - Exact(?) colours used on the site is now displayed. `"-l"` as an argument followed by place name will override the location in the configuration.\
-2020-01-27 - 0.1m "m is the new WINDOWS support!" - It should work better with Windows now. May or may not have broken it previously when I added the function to auto-create configuration at desired location. Also, added batch script to auto-run python script for Windows.
+2020-01-26 - 0.1l "Colours and LOCATIONS!" - Exact(?) colours used on the site is now displayed. `-l` as an argument followed by place name will override the location in the configuration.\
+2020-01-27 - 0.1m "m is the new WINDOWS support!" - It should work better with Windows now. May or may not have broken it previously when I added the function to auto-create configuration at desired location. Also, added batch script to auto-run python script for Windows.\
+2020-02-03 - 0.1n "Supporting the NEW!" - Adds support for the new NSW AQI which now measures PM10 and PM2.5 as hourly averages. To use the old, original site (where the Particulate Matter is reported as a 24-hour average) use the `-d` flag. Don't forget to add the site to the config.json. See template for changes.
 
 ## Licence
 

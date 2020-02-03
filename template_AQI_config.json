@@ -1,5 +1,6 @@
 {
-	"site": "https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1",
+	"site": "https://airquality.environment.nsw.gov.au/aquisnetnswphptest/getPage.php?reportid=1",
+	"old": "https://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=1",
 	"location": "Liverpool",
 	"interested_fields": {
 		"Site Name": true,

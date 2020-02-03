@@ -2,7 +2,7 @@
 
 # Original Author: William
 # Date created: 2019-12-12
-# Version: 2020-01-27 version 0.1m "m is the new WINDOWS support!"
+# Version: 2020-02-03 version 0.1n "Supporting the NEW!"
 # Reason: The air quality settled down around my area and I wasn"t worrying about breathing for once so I considered writing a simple script.
 # What this does:
 # A simple script that outputs necessary data to terminal or elsewhere based on config.
@@ -91,10 +91,15 @@ def print_config():
 
 
 # pls help, func not descriptive enough.
-def get_html():
+def get_html(new):
     import requests
 
-    html_data = requests.get(str(settings["site"]))
+    if new:
+        url = str(settings["site"])
+    else:
+        url = str(settings["old"])
+
+    html_data = requests.get(url)
 
     return html_data.text
 
@@ -106,11 +111,12 @@ def save_html():
 
 
 # Reads the values from the table.
-def get_values():
+def get_values(new):
     global fields, current_time
     import datetime
 
-    soup = BeautifulSoup(markup=get_html(), features="lxml")
+    source = get_html(new)
+    soup = BeautifulSoup(markup=source, features="lxml")
 
     current_time = datetime.datetime.now().strftime("%c")
 
@@ -183,12 +189,12 @@ def format_colour(field, scale, value):
     return f"{field:<20} is {terminalColour[scale]}{scale:^10}{terminalColour['RESET']} at {terminalColour[scale]}{value:>5}{terminalColour['RESET']}"
 
 
-def print_data():
+def print_data(new):
     global fields
     
     scale = None
 
-    get_values()
+    get_values(new)
     if settings["colour"]:
         print_scale()
     print(current_time)
@@ -330,6 +336,7 @@ def read_args():
     # Lets one immediately parse in a different location
     parser.add_argument("-l", "--location", required=False)
     parser.add_argument("-nc", "--no-colour", required=False, action="store_true")
+    parser.add_argument("-d", "--daily-averaged", required=False, action="store_true")
 
     # subs = parser.add_subparsers()
 
@@ -362,8 +369,10 @@ def read_args():
         func()
     # elif args.func(args):
     #     args.func(args)
+    if args.daily_averaged:
+        print_data(False)
     else:
-        print_data()
+        print_data(True)
 
 
 if __name__ == "__main__":
