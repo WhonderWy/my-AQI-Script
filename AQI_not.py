@@ -2,8 +2,7 @@
 
 # Original Author: William
 # Date created: 2019-12-12
-# Version: 2020-02-03 version 0.1n "Supporting the NEW!"
-# Reason: The air quality settled down around my area and I wasn"t worrying about breathing for once so I considered writing a simple script.
+# Version: 2020-09-04 version 0.1o "No more notification oops"
 # What this does:
 # A simple script that outputs necessary data to terminal or elsewhere based on config.
 
@@ -223,10 +222,10 @@ def print_data(new):
         print(string)
 
 
-def send_notification():
+def send_notification(daily=True):
     import platform
 
-    get_values()
+    get_values(daily)
     string = None
 
     osName = platform.system()
@@ -295,22 +294,6 @@ def change_settings(*args):
     # read_config()
     # if "-l" in args:
     pass
-
-
-def timer(time=60):
-    from apscheduler.schedulers.blocking import BlockingScheduler
-
-    scheduler = BlockingScheduler()
-    # scheduler.add_job(send_notification(), "interval", minutes=time)
-    scheduler.add_job(print_data(), "interval", seconds=time)
-    scheduler.start()
-
-    # try:
-    #     while True:
-    #         import time
-    #         time.sleep(2)
-    # except (KeyboardInterrupt, SystemExit):
-    #     scheduler.shutdown()
 
 
 # https://stackoverflow.com/a/27529806/12408018
